@@ -2,7 +2,7 @@ import { memo, useState } from "react";
 import {
   AppState,
   createAppSelector,
-  useAppDispath,
+  useAppDispatch,
   useAppSelector,
   UserId,
   UserRemoveSelectedAction,
@@ -71,7 +71,7 @@ const UserListItem = memo(function UserListItem({
   userId: UserId;
 }) {
   const user = useAppSelector((state) => state.users.entities[userId]);
-  const dispatch = useAppDispath();
+  const dispatch = useAppDispatch();
   const handleUserClick = () => {
     dispatch({
       type: "userSelected",
@@ -87,7 +87,7 @@ const UserListItem = memo(function UserListItem({
 
 function SelectedUser({ userId }: { userId: UserId }) {
   const user = useAppSelector((state) => state.users.entities[userId]);
-  const dispatch = useAppDispath();
+  const dispatch = useAppDispatch();
   const handleBackButtonClick = () => {
     dispatch({
       type: "userRemoveSelected",
