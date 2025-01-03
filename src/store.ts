@@ -1,34 +1,14 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineSlices, configureStore } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
 
-type State = {
-  counter: number;
-};
-
-export type IncrementAction = {
-  type: "increment";
-};
-
-export type DecrementAction = {
-  type: "decrement";
-};
-
-type Action = IncrementAction | DecrementAction;
-
-const initialState: State = {
-  counter: 0,
-};
-
-const reducer = (state = initialState, action?: Action): State => {
-  switch (action?.type) {
-    case "increment":
-      return { counter: state.counter + 1 };
-    case "decrement":
-      return { counter: state.counter - 1 };
-    default:
-      return state;
-  }
-};
+export const rootReducer = combineSlices();
 
 export const store = configureStore({
-  reducer: reducer,
+  reducer: rootReducer,
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
+export const useAppSelector = useSelector.withTypes<RootState>();
